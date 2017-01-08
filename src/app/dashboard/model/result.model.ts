@@ -1,7 +1,8 @@
 export class Result {
     Id: number;
+    ProcessId: number;
     Status: string;
-    Mesage:string;
+    Message: string;
     CorrectiveAction: string;
     constructor() {
 

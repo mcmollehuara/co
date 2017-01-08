@@ -20,13 +20,11 @@ const ENV = process.env.ENV = process.env.NODE_ENV = 'development';
 const HOST = process.env.HOST || 'localhost';
 const PORT = process.env.PORT || 3000;
 const HMR = helpers.hasProcessFlag('hot');
-const API_URL = "http://localhost:54492/";
 const METADATA = webpackMerge(commonConfig({env: ENV}).metadata, {
   host: HOST,
   port: PORT,
   ENV: ENV,
-  HMR: HMR,
-  API_URL: API_URL
+  HMR: HMR
 });
 
 /**
@@ -73,7 +71,7 @@ module.exports = function (options) {
        *
        * See: http://webpack.github.io/docs/configuration.html#output-sourcemapfilename
        */
-      sourceMapFilename: '[name].map',
+      sourceMapFilename: '[file].map',
 
       /** The filename of non-entry chunks as relative path
        * inside the output.path directory.
@@ -84,6 +82,36 @@ module.exports = function (options) {
 
       library: 'ac_[name]',
       libraryTarget: 'var',
+    },
+
+    module: {
+
+      rules: [
+
+        /*
+         * css loader support for *.css files (styles directory only)
+         * Loads external css styles into the DOM, supports HMR
+         *
+         */
+        {
+          test: /\.css$/,
+          use: ['style-loader', 'css-loader'],
+          include: [helpers.root('src', 'styles')]
+        },
+
+        /*
+         * sass loader support for *.scss files (styles directory only)
+         * Loads external sass styles into the DOM, supports HMR
+         *
+         */
+        {
+          test: /\.scss$/,
+          use: ['style-loader', 'css-loader', 'sass-loader'],
+          include: [helpers.root('src', 'styles')]
+        },
+
+      ]
+
     },
 
     plugins: [
@@ -105,7 +133,6 @@ module.exports = function (options) {
           'ENV': JSON.stringify(METADATA.ENV),
           'NODE_ENV': JSON.stringify(METADATA.ENV),
           'HMR': METADATA.HMR,
-          'API_URL': JSON.stringify(METADATA.API_URL)
         }
       }),
 
@@ -115,7 +142,7 @@ module.exports = function (options) {
        *
        * See: https://github.com/webpack/webpack/commit/a04ffb928365b19feb75087c63f13cadfc08e1eb
        */
-      new NamedModulesPlugin(),
+      // new NamedModulesPlugin(),
 
       /**
        * Plugin LoaderOptionsPlugin (experimental)
@@ -125,18 +152,6 @@ module.exports = function (options) {
       new LoaderOptionsPlugin({
         debug: true,
         options: {
-
-          /**
-           * Static analysis linter for TypeScript advanced options configuration
-           * Description: An extensible linter for the TypeScript language.
-           *
-           * See: https://github.com/wbuchwalter/tslint-loader
-           */
-          tslint: {
-            emitErrors: false,
-            failOnHint: false,
-            resourcePath: 'src'
-          },
 
         }
       }),
@@ -158,8 +173,7 @@ module.exports = function (options) {
       watchOptions: {
         aggregateTimeout: 300,
         poll: 1000
-      },
-      outputPath: helpers.root('dist')
+      }
     },
 
     /*

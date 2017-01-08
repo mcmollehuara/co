@@ -1,5 +1,6 @@
 export class FunctionalTest {
     Id: number;
+    ProcessId:number;
     Name: string;
     Status:string;
     Passed: number;
@@ -8,6 +9,7 @@ export class FunctionalTest {
     Total: number;
     PassedPercentage:string;
     constructor() {
-
+        this.Passed = 0;
+        this.Failed = 0;
     }
 }

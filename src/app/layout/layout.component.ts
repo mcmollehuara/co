@@ -8,7 +8,7 @@ declare var jQuery: any;
 @Component({
     selector: 'layout',
     providers: [],
-    templateUrl: './layout.html',
+    templateUrl: './layout.component.html',
     host: {
         '[class.nav-static]': 'config.state["nav-static"]',
         '[class.chat-sidebar-opened]': 'chatOpened',

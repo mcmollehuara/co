@@ -13,6 +13,8 @@ import { ResultComponent } from './components/result/result.component';
 
 import { ChartsCommonComponent } from './../shared/components/charts/charts.common.component';
 
+import { ToastyService } from 'ng2-toasty';
+
 @NgModule({
     imports: [BrowserModule, FormsModule, RouterModule, DashboardRoutes],
     exports: [],
@@ -25,6 +27,6 @@ import { ChartsCommonComponent } from './../shared/components/charts/charts.comm
     ChartsCommonComponent,
     ResultComponent
    ],
-    providers: [DashboardService]
+    providers: [DashboardService, ToastyService]
 })
 export class DashboardModule { }

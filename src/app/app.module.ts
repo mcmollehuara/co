@@ -1,32 +1,40 @@
-import { NgModule, ApplicationRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { RouterModule } from '@angular/router';
-import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
+import {
+  NgModule,
+  ApplicationRef
+} from '@angular/core';
+import {
+  removeNgStyles,
+  createNewHosts,
+  createInputTransfer
+} from '@angularclass/hmr';
+import {
+  RouterModule,
+  PreloadAllModules
+} from '@angular/router';
+
 
 import { LayoutModule } from './layout/layout.module';
 import { DashboardModule } from './dashboard/dashboard.module';
-import { HomeModule } from './home/home.module';
+import { AppConfig } from './app.config';
+
+import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
+import { ToastyModule, ToastyConfig } from 'ng2-toasty';
+
+
 /*
  * Platform and Environment providers/directives/pipes
  */
 import { ENV_PROVIDERS } from './environment';
 import { ROUTES } from './app.routes';
-import { AppConfig } from './app.config';
 // App is our top level component
 import { AppComponent } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
 
-import { HomeComponent } from './home';
-import { AboutComponent } from './about';
-import { NoContentComponent } from './no-content';
-import { XLarge } from './home/x-large';
-
-import {SlimLoadingBarModule} from 'ng2-slim-loading-bar';
-import {ToastyModule, ToastyConfig} from 'ng2-toasty';
-
+import '../styles/styles.css';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -45,39 +53,41 @@ type StoreType = {
  * `AppModule` is the main entry point into Angular2's bootstraping process
  */
 @NgModule({
-  bootstrap: [ AppComponent ],
+  bootstrap: [AppComponent],
   declarations: [
     AppComponent,
-    AboutComponent,
-    HomeComponent,
-    NoContentComponent,
-    XLarge
   ],
-  imports: [ 
+  imports: [ // import Angular's modules
     BrowserModule,
     FormsModule,
     HttpModule,
     LayoutModule,
     DashboardModule,
-    HomeModule,
     ToastyModule.forRoot(),
     SlimLoadingBarModule.forRoot(),
-    RouterModule.forRoot(ROUTES, { useHash: true })
+    RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules })
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
     APP_PROVIDERS
-  ]  
+  ]
 })
 export class AppModule {
-  constructor(public appRef: ApplicationRef, public appState: AppState, private toastyConfig: ToastyConfig) {
-     this.toastyConfig.showClose = true;
-     this.toastyConfig.theme = 'bootstrap';
-     this.toastyConfig.position = 'bottom-right';
+
+  constructor(
+    public appRef: ApplicationRef,
+    public appState: AppState,
+    private toastyConfig: ToastyConfig
+  ) {
+    this.toastyConfig.showClose = true;
+    this.toastyConfig.theme = 'bootstrap';
+    this.toastyConfig.position = 'bottom-right';
   }
 
-  hmrOnInit(store: StoreType) {
-    if (!store || !store.state) return;
+  public hmrOnInit(store: StoreType) {
+    if (!store || !store.state) {
+      return;
+    }
     console.log('HMR store', JSON.stringify(store, null, 2));
     // set state
     this.appState._state = store.state;
@@ -92,24 +102,23 @@ export class AppModule {
     delete store.restoreInputValues;
   }
 
-  hmrOnDestroy(store: StoreType) {
-    const cmpLocation = this.appRef.components.map(cmp => cmp.location.nativeElement);
+  public hmrOnDestroy(store: StoreType) {
+    const cmpLocation = this.appRef.components.map((cmp) => cmp.location.nativeElement);
     // save state
     const state = this.appState._state;
     store.state = state;
     // recreate root elements
     store.disposeOldHosts = createNewHosts(cmpLocation);
     // save input values
-    store.restoreInputValues  = createInputTransfer();
+    store.restoreInputValues = createInputTransfer();
     // remove styles
     removeNgStyles();
   }
 
-  hmrAfterDestroy(store: StoreType) {
+  public hmrAfterDestroy(store: StoreType) {
     // display new elements
     store.disposeOldHosts();
     delete store.disposeOldHosts;
   }
 
 }
-

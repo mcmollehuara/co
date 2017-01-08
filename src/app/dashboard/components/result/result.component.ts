@@ -8,18 +8,20 @@ import { Result } from './../../model/result.model';
 })
 export class ResultComponent implements OnInit {
     constructor() { }
-    item: Result;
-    @Input() ProcessId: number;
+    @Input() item: Result = new Result();
+    // @Input() ProcessId: number;
     ngOnInit() {
-        this.getResult(this.ProcessId);
+        // this.asyncDataWithWebpack();
     }
 
-    getResult(processId: number) {
-        let result = new Result();
-        result.Id = 1;
-        result.Status = "Change Rejected";
-        result.Mesage = "Metrics Reduction";
-        result.CorrectiveAction = "Find Issues";
-        this.item = result;
-    }
+    // private asyncDataWithWebpack() {
+    //     setTimeout(() => {
+    //         System.import('../../../../assets/mock-data/mock-result-data.json')
+    //             .then((json) => {
+    //                 console.log('async result', json);
+    //                 this.item = json;
+    //             });
+
+    //     });
+    // }
 }

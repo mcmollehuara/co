@@ -1,5 +1,6 @@
 export class Metric{
     Id:number
+    ProcessId:number;
     Name:string;
     Status:string;
     Test:number;

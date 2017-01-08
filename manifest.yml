@@ -1,5 +1,0 @@
----
-applications:
-- name: bi-portal
-  command: npm run server:prod
-  buildpack: https://github.com/cloudfoundry/nodejs-buildpack

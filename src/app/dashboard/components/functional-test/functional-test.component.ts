@@ -2,24 +2,29 @@ import { Input, Component, OnInit } from '@angular/core';
 import { FunctionalTest } from './../../model/functional-test.model';
 
 @Component({
-    moduleId: module.id,
+    moduleId: module.id.toString(),
     selector: 'fuctional-test',
     templateUrl: 'functional-test.component.html'
 })
 export class FunctionalTestComponent implements OnInit {
     constructor() { }
-    item: FunctionalTest = new FunctionalTest();
+    @Input() item: FunctionalTest = new FunctionalTest();
     options: any;
     data: any;
-    @Input() ProcessId: number;
+    // @Input() ProcessId: number;
     ngOnInit() {
-        this.getFunctionalTest(this.ProcessId);
+        // this.asyncDataWithWebpack();
+
+
+    }
+
+    ngOnChanges() {
         this.options = {
             chart: {
                 type: 'pieChart',
                 height: 100,
-                x: function (d) { return d.key; },
-                y: function (d) { return d.y; },
+                x: function(d) { return d.key; },
+                y: function(d) { return d.y; },
                 showLabels: true,
                 showLegend: false,
                 showControls: false,
@@ -44,12 +49,17 @@ export class FunctionalTestComponent implements OnInit {
         ];
     }
 
-    getFunctionalTest(processId: number) {
-        this.item.Id = 1;
-        this.item.Name = "Unit Test";
-        this.item.CoveragePercentage = "45%";
-        this.item.Passed = 75;
-        this.item.Failed = 25;
-        this.item.PassedPercentage = "75%";
-    }
+    // private asyncDataWithWebpack() {
+    //     setTimeout(() => {
+    //         System.import('../../../../assets/mock-data/mock-functional-test-data.json')
+    //             .then((json) => {
+    //                 console.log('async mockData', json);
+    //                 this.item = json;
+
+
+    //             });
+
+    //     });
+    // }
+
 }

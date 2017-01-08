@@ -17,37 +17,37 @@
         <hr>
         <div *ngFor="let item of list" class="row alert alert-{{item.Status}}">
           <div class="col-md-2">
-            <i class="fa fa-{{item.Type==1?'building':'laptop'}} fa-lg" aria-hidden="true"></i> {{item.Name}}
+            <i class="fa fa-{{item.Type==1?'building':'laptop'}} fa-2x" aria-hidden="true"></i> {{item.Name}}
           </div>
-          <div class="col-md-2">{{item.OwnerName}}</div>
-          <div class="col-md-2">{{item.DataTime | date: 'MM/dd/yyyy'}} - {{item.DataTime | date:"HH:mm"}}</div>
-          <div class="col-md-1">{{item.StatusName}}</div>
-          <div class="col-md-1">
+          <div class="col-md-2 p-t-ss">{{item.OwnerName}}</div>
+          <div class="col-md-2 p-t-ss">{{item.DataTime | date: 'MM/dd/yyyy'}} - {{item.DataTime | date:"HH:mm"}}</div>
+          <div class="col-md-1 p-t-ss">{{item.StatusName}}</div>
+          <div class="col-md-1 p-t-1">
             <div class="bg-gray-lighter progress-bar">
               <progress progress-animate class="progress progress-{{item.MetricStatus}} progress-sm" value="100" max="100" [style.width]="item.MetricValue"
                 data-width="item.MetricValue"></progress>
             </div>
           </div>
-          <div class="col-md-1">
+          <div class="col-md-1 p-t-1">
             <div class="bg-gray-lighter progress-bar">
               <progress progress-animate class="progress progress-{{item.BuildStatus}} progress-sm" value="100" max="100" [style.width]="item.BuildValue"
                 data-width="item.BuildValue">
               </progress>
             </div>
           </div>
-          <div class="col-md-1">
+          <div class="col-md-1 p-t-1">
             <div class="bg-gray-lighter progress-bar">
               <progress progress-animate class="progress progress-{{item.UnitTestStatus}} progress-sm" value="100" max="100" [style.width]="item.UnitTestValue"
                 data-width="item.UnitTestValue"></progress>
             </div>
           </div>
-          <div class="col-md-1">
+          <div class="col-md-1 p-t-1">
             <div class="bg-gray-lighter progress-bar">
               <progress progress-animate class="progress progress-{{item.FunctionalTestStatus}} progress-sm" value="100" max="100" [style.width]="item.FunctionalTestValue"
                 data-width="item.FunctionalTestValue"></progress>
             </div>
           </div>
-          <div class="col-md-1">
+          <div class="col-md-1 p-t-ss">
             <!--<span class="circle bg-warning"><i class="fa fa-cog"></i></span>-->
             <a [hidden]="item.Expanded" (click)="onExpandPanel(item)" class="pull-right" title="Expand panel">
               <i class="fa fa-chevron-down" aria-hidden="true"></i>
@@ -57,28 +57,28 @@
             </a>
           </div>
           <hr>
-          <div [hidden]="!item.Expanded" class="col-md-4">
-            <metric [ProcessId]="item.Id">
+          <div [hidden]="!item.Expanded" class="col-md-4 animated fadeInUp">
+            <metric [item]="detail.Metric">
             </metric>
           </div>
-          <div [hidden]="!item.Expanded" class="col-md-2">
-            <build [ProcessId]="item.Id">
+          <div [hidden]="!item.Expanded" class="col-md-2  animated fadeInUp">
+            <build [item]="detail.Build">
             </build>
           </div>
-          <div [hidden]="!item.Expanded" class="col-md-2">
-            <unit-test [ProcessId]="item.Id">
+          <div [hidden]="!item.Expanded" class="col-md-2 animated fadeInUp">
+            <unit-test [item]="detail.UnitTest">
             </unit-test>
           </div>
-          <div [hidden]="!item.Expanded" class="col-md-2">
-            <fuctional-test [ProcessId]="item.Id">
+          <div [hidden]="!item.Expanded" class="col-md-2  animated fadeInUp">
+            <fuctional-test [item]="detail.FunctionalTest">
             </fuctional-test>
           </div>
-          <div [hidden]="!item.Expanded" class="col-md-2">
-            <result [ProcessId]="item.Id">
+          <div [hidden]="!item.Expanded" class="col-md-2  animated fadeInUp">
+            <result [item]="detail.Result">
             </result>
           </div>
-          <div [hidden]="!item.Expanded" class="col-md-2">
-          </div>
+          <!--<div [hidden]="!item.Expanded" class="col-md-2   animated fadeInUp">
+          </div>-->
         </div>
       </div>
     </section>

@@ -8,7 +8,7 @@
             <div>
                 <p class="h3 text-{{TestStatus}} no-margin">
                     <strong data-animate-number="">{{item.Test}}</strong>
-                    <i class="fa fa-arrow-circle-{{item.TestStatus=='success'?'up':'down'}} text-{{item.TestStatus}}" aria-hidden="true"></i>
+                    <i class="fa fa-arrow-circle-{{(this.item.TestStatus == 'success' ? 'up' : (this.item.TestStatus == 'warning' ? 'right' : 'down'))}} text-{{item.TestStatus}}" aria-hidden="true"></i>
                 </p>
                 Test
             </div>

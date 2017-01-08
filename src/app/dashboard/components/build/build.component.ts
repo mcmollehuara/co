@@ -8,17 +8,20 @@ import { Build } from './../../model/build.model';
 })
 export class BuildComponent implements OnInit {
     constructor() { }
-    @Input() ProcessId: number;
-    item: Build = new Build();
-    list: Array<Build>;
+    // @Input() ProcessId: number;
+    @Input() item: Build = new Build();
     ngOnInit() {
-        this.getBuild(this.ProcessId);
+    //    this.asyncDataWithWebpack();
     }
 
-    getBuild(processId: number) {
-        this.item.Name = "Build";
-        this.item.Datetime = new Date();
-        this.item.DebugStatus = "danger";
-        this.item.ReleaseStatus = "success";
-    }
+    // private asyncDataWithWebpack() {
+    //     setTimeout(() => {
+    //         System.import('../../../../assets/mock-data/mock-build-data.json')
+    //             .then((json) => {
+    //                 console.log('async mockData', json);
+    //                 this.item = json;
+    //             });
+
+    //     });
+    // }
 }

@@ -1,24 +1,24 @@
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { UnitTest } from './../../model/unit-test.model';
 
 @Component({
-    moduleId: module.id,
+    moduleId: module.id.toString(),
     selector: 'unit-test',
     templateUrl: 'unit-test.component.html'
 })
 export class UnitTestComponent implements OnInit {
     constructor() { }
-    item: UnitTest = new UnitTest();
+    @Input() item: UnitTest = new UnitTest();
     options: any;
     data: any;
-    @Input() ProcessId:number;
+    // @Input() ProcessId: number;
     ngOnInit() {
-        this.item.Id = 1;
-        this.item.Name = "Unit Test";
-        this.item.CoveragePercentage = "45%";
-        this.item.Passed = 75;
-        this.item.Failed = 25;
-        this.item.PassedPercentage = "75%";
+        // this.asyncDataWithWebpack();
+
+
+    }
+
+    ngOnChanges(){
         this.options = {
             chart: {
                 type: 'pieChart',
@@ -34,7 +34,7 @@ export class UnitTestComponent implements OnInit {
                     bottom: 0,
                     left: 0
                 },
-                color: ['#82CEAC','#F9B295']
+                color: ['#82CEAC', '#F9B295']
             }
         };
         this.data = [
@@ -48,4 +48,15 @@ export class UnitTestComponent implements OnInit {
             }
         ];
     }
+    // private asyncDataWithWebpack() {
+    //     setTimeout(() => {
+    //         System.import('../../../../assets/mock-data/mock-unit-test-data.json')
+    //             .then((json) => {
+    //                 console.log('async mockData', json);
+    //                 this.item = json;
+    //                
+    //             });
+
+    //     });
+    // }
 }
