@@ -1,11 +1,12 @@
 # Crossover application 
 > A demo dashboard that shows continuos integration features. 
-It was made with Angular2 and Webpack in order to automate tasks.
+It was made with Angular2 Typescript and Webpack in order to automate tasks.
   
 
 ### Quick start
 **Make sure you have Node version >= 5.0 and NPM >= 3**
-> Download zip file and uncompress where you prefer  
+> Download zip file delivered and uncompress where you prefer
+> Alternatively you can use https://github.com/mcmollehuara/co repository
 
 ```bash
 # install the repo with npm
@@ -20,12 +21,12 @@ npm start
 go to [http://0.0.0.0:3000](http://0.0.0.0:3000) or [http://localhost:3000](http://localhost:3000) in your browser
 ```
 
-### run unit tests
+### run unit tests (karma-chrome-launcher)
 ```bash
 npm run test
 ```
 
-### watch and run our tests
+### watch and run our tests (karma-chrome-launcher)
 ```bash
 npm run watch:test
 
